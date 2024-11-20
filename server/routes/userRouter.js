@@ -1,53 +1,79 @@
-import { pool } from '../helpers/db.js'
-import { Router } from 'express'
-import { hash,compare } from 'bcrypt'
-import jwt from 'jsonwebtoken'
-const { sign } = jwt
+import { Router } from 'express';
+import { hash, compare } from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import {
+    insertUser,
+    selectUserByEmail,
+    deleteUser,
+    updateUserPassword,
+    updateUserEmail,
+} from '../../models/User.js';
 
-const router = Router()
+const { sign } = jwt;
+const router = Router();
 
-router.post('/register',(req,res,next) => {
-    hash(req.body.password,10,(error,hashedPassword) => {
-        if(error) next(error)
-        try {
-            pool.query('insert into account (email,password) values ($1,$2) returning *',
-                [req.body.email,hashedPassword],
-                (error,result) => {
-                    if(error) return next(error)
-                    return res.status(201).json({id: result.rows[0].id, email: result.rows[0].email})
-                }
-            )
-        }   catch (error) {
-            return next(error)
-        }
-    })
-})
-
-router.post('/login',(req,res,next) => {
-    const invalid_message = 'Invalid credenials.'
+// Register route
+router.post('/register', async (req, res, next) => {
     try {
-        pool.query('select * from account where email = $1',
-            [req.body.email],
-            (error,result) => {
-                if(error) return next(error)
-                if(result.rows.length === 0) return next(new Error(invalid_message))
-                    compare(req.body.password,result.rows[0].password,(error,match) => {
-                        if (error) next(error)
-                        if (!match) return next(new Error(invalid_message))
-                        const token = sign ({ user: req.body.email},process.env.JWT_SECRET_KEY)
-                        const user = result.rows[0]
-                        return res.status(200).json(
-                            {
-                                'id':user.id,
-                                'email':user.email,
-                                'token':token
-                            }
-                        )
-                    })
-            })
-    }   catch (error) {
-        return next(error)
-    }
-})
+        const { email, password } = req.body;
 
-export default router
+        // Hash the password
+        const hashedPassword = await hash(password, 10);
+
+        // Insert the new user
+        const newUser = await insertUser(email, hashedPassword);
+
+        // Send the response with the new user data
+        res.status(201).json({ id: newUser.id, email: newUser.email });
+    } catch (error) {
+        // Handle errors, such as duplicate email
+        if (error.message === 'Email is already taken') {
+            return res.status(400).json({ error: 'Email is already taken' });
+        }
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+// Login route
+router.post('/login', async (req, res, next) => {
+    const invalidMessage = 'Invalid credentials.';
+    try {
+        const user = await selectUserByEmail(req.body.email);
+        if (!user) return next(new Error(invalidMessage));
+
+        const match = await compare(req.body.password, user.password);
+        if (!match) return next(new Error(invalidMessage));
+
+        const token = sign({ user: req.body.email }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+        res.status(200).json({ id: user.id, email: user.email, token });
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Delete route
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        // Delete the user by ID
+        const result = await deleteUser(id);
+
+        // If no rows were deleted, the user was not found
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Successfully deleted
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+
+export default router;
