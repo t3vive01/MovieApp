@@ -12,7 +12,7 @@ export default function UserProvider({children}) {
     const json = JSON.stringify(user)
     const headers = {headers: {'Content-Type':'application/json'}}
     try {
-      await axios.post(url + '/user/register',json,headers)      
+      await axios.post(url + '/register',json,headers)      
       setUser({email: '',password: ''})
     } catch(error) {
       throw error
