@@ -2,14 +2,13 @@ import { pool } from '../helpers/db.js';
 
 const insertUser = async (email, hashedPassword) => {
     try {
-        // Check if email already exists
+
         const existingUser = await pool.query('SELECT * FROM account WHERE email = $1', [email]);
 
         if (existingUser.rows.length > 0) {
             throw new Error('Email is already taken');
         }
 
-        // Insert new user if email does not exist
         const result = await pool.query(
             'INSERT INTO account (email, password) VALUES ($1, $2) RETURNING *',
             [email, hashedPassword]
@@ -17,7 +16,7 @@ const insertUser = async (email, hashedPassword) => {
         return result.rows[0];
     } catch (error) {
         console.error(`Error inserting user: ${error.message}`);
-        throw error;  // Re-throw the error to be handled in the route handler
+        throw error;  
     }
 };
 
@@ -27,7 +26,7 @@ const insertUser = async (email, hashedPassword) => {
 const selectUserByEmail = async (email) => {
     try {
         const result = await pool.query('SELECT * FROM account WHERE email = $1', [email]);
-        return result.rows[0]; // Return the user if found
+        return result.rows[0]; 
     } catch (error) {
         console.error(`Error selecting user by email: ${error.message}`);
         throw new Error('Failed to fetch user');
@@ -37,10 +36,10 @@ const selectUserByEmail = async (email) => {
 const deleteUser = async (id) => {
     try {
         const result = await pool.query('DELETE FROM account WHERE id = $1 RETURNING *', [id]);
-        return result; // The result will have a rowCount property
+        return result; 
     } catch (error) {
         console.error('Error deleting user:', error);
-        throw error; // Let the route handler catch the error
+        throw error; 
     }
 };
 

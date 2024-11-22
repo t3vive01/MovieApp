@@ -8,26 +8,24 @@ function App() {
   const { user, signOut } = useUser();
   const navigate = useNavigate();
 
-  //welcome after login. idk change it later
-  if (user?.token) {
-    return (
-      <div className="welcome-container">
-        <h2>Welcome to XXXXX app {user.email}!</h2>
-        <button onClick={() => {
-          signOut();
-          navigate('/signin');
-        }}>
-          Log Out
-        </button>
-      </div>
-    );
-  }
+  // //welcome after login. idk change it later
+  // if (user?.token) {
+  //   return (
+  //     <div className="welcome-container">
+  //       <h2>Welcome to XXXXX app {user.email}!</h2>
+  //       <button onClick={() => {
+  //         signOut();
+  //         navigate('/signin');
+  //       }}>
+  //         Log Out
+  //       </button>
+  //     </div>
+  //   );
+  // }
 
   //this is for homepage when the user isnt logged in. Like the default page
   return (
-    <div className="auth-section">
-      <Authentication authenticationMode={AuthenticationMode.Login} />
-    </div>
+    123
   );
 }
 
