@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import movieRouter from './routes/movieRouter'
+import movieRouter from '../routes/movieRouter'
 const app = express();
 const port = 3000;
 app.use(cors())
