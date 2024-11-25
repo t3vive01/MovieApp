@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post<{ token: string }>('/api/auth/login', { email, password });
+            const response = await axios.post<{ token: string }>('http://localhost:3000/api/auth/login', { email, password });
             localStorage.setItem('token', response.data.token);
             setMessage('Login successful!');
         } catch (err) {
@@ -22,7 +22,7 @@ const Login: React.FC = () => {
     return (
         <div className="auth-container">
             <div className="auth-card">
-                <h2 className="auth-title">Welcome Back User - we can change this later</h2>
+                <h2 className="auth-title">Login</h2>
                 {message && <p className="auth-message">{message}</p>}
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">

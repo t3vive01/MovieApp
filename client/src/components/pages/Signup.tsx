@@ -12,7 +12,7 @@ const Signup: React.FC = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await axios.post('/api/auth/signup', { username, email, password });
+            await axios.post('http://localhost:3000/api/auth/register', { username, email, password });
             setMessage('Signup successful! You can now log in.');
         } catch (err) {
             setMessage('Signup failed! Please try again.');
