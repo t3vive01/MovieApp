@@ -1,0 +1,116 @@
+body {
+    background: linear-gradient(135deg, #5CA0D3, #FF7474); 
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container Styling */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    margin-left: 362px;
+    margin-top: 40px;
+    box-sizing: border-box;
+}
+
+/* Card Styling */
+.auth-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.auth-title {
+    color: #FF4747;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.auth-message {
+    color: #FF4747;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Form Styling */
+.auth-form .form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.auth-form label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.auth-form .form-control {
+    width: 90%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 2px solid #5CA0D3;
+    border-radius: 6px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-form .form-control:focus {
+    border-color: #FF4747;
+    outline: none;
+    box-shadow: 0 0 5px #FF7474;
+}
+
+/* Button Styling */
+.auth-button {
+    background: #FF4747;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.auth-button:hover {
+    background: #D93A3A;
+    transform: translateY(-3px);
+}
+
+/* Navbar Styling */
+nav {
+    background: #5CA0D3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 100px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #FFD700; /* Highlight effect */
+}
+
+.navbar-search input{
+    display: flex;
+    align-items: center;
+    width: 320px;
+}
