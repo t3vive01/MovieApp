@@ -32,4 +32,17 @@ router.get('/genres', async (req, res, next) => {
    res.status(200).json(data.genres);
 })
 
+router.get('/getAll', async (req, res, next) => {
+   const response = await fetch(`https://api.themoviedb.org/3/discover/movie`, {
+      method: 'GET',
+      headers
+   });
+   
+   if (!response.ok) {
+      res.status(400);
+   }
+   const data = await response.json();
+   res.status(200).json(data);
+})
+
 export default router

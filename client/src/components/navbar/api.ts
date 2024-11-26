@@ -1,4 +1,4 @@
-import { SearchResult, Genre } from "./types";
+import { SearchResult, Genre, Movie } from "./types";
 
 
 export const fetchSearchResults = async (query: string, genre: number | null): Promise<SearchResult> => {
@@ -17,8 +17,17 @@ export const fetchGenres = async (): Promise<Genre[]> => {
     throw new Error("Failed to fetch genres");
   }
 
-
   const data = await response.json();
   return data;
 };
 
+export const fetchMovies = async (): Promise<Movie[]> => {
+  const response = await fetch(`http://localhost:3000/api/movies/getAll`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch Movies");
+  }
+
+
+  const data = await response.json();
+  return data;
+};
