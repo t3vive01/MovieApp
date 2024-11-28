@@ -4,4 +4,4 @@ module.exports = {
 
 //REMINDER INCASE!!
 //password: MovieAppG19
-// if theres problems with db just message me
+// if theres problems and you end up here just message me (gunn)
