@@ -1,76 +1,88 @@
-import { pool } from '../helpers/db.js';
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
-const insertUser = async (email, hashedPassword) => {
-    try {
-        // Check if email already exists
-        const existingUser = await pool.query('SELECT * FROM account WHERE email = $1', [email]);
+const saltRounds = 10;
+const jwt = require("jsonwebtoken");
 
-        if (existingUser.rows.length > 0) {
-            throw new Error('Email is already taken');
-        }
+const userSchema = mongoose.Schema({
+  name: {
+    type: String,
+    maxlength: 50,
+  },
+  email: {
+    type: String,
+    trim: true,
+    unique: 1,
+  },
+  password: {
+    type: String,
+    minlength: 5,
+  },
+  lastname: {
+    type: String,
+    maxlength: 50,
+  },
+  role: {
+    type: Number,
+    default: 0,
+  },
+  image: String,
+  token: {
+    type: String,
+  },
+  tokenExp: {
+    type: Number,
+  },
+});
 
-        // Insert new user if email does not exist
-        const result = await pool.query(
-            'INSERT INTO account (email, password) VALUES ($1, $2) RETURNING *',
-            [email, hashedPassword]
-        );
-        return result.rows[0];
-    } catch (error) {
-        console.error(`Error inserting user: ${error.message}`);
-        throw error;  // Re-throw the error to be handled in the route handler
-    }
+userSchema.pre("save", function (next) {
+  var user = this;
+
+  if (user.isModified("password")) {
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+      if (err) return next(err);
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        if (err) return next(err);
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
+
+userSchema.methods.comparePassword = function (plainPassword, cb) {
+  bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
 };
 
+userSchema.methods.generateToken = function (cb) {
+  var user = this;
+
+  var token = jwt.sign(user._id.toHexString(), "secretToken");
 
 
-
-const selectUserByEmail = async (email) => {
-    try {
-        const result = await pool.query('SELECT * FROM account WHERE email = $1', [email]);
-        return result.rows[0]; // Return the user if found
-    } catch (error) {
-        console.error(`Error selecting user by email: ${error.message}`);
-        throw new Error('Failed to fetch user');
-    }
+  user.token = token;
+  user.save(function (err, user) {
+    if (err) return cb(err);
+    cb(null, user);
+  });
 };
 
-const deleteUser = async (id) => {
-    try {
-        const result = await pool.query('DELETE FROM account WHERE id = $1 RETURNING *', [id]);
-        return result; // The result will have a rowCount property
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        throw error; // Let the route handler catch the error
-    }
+userSchema.statics.findByToken = function (token, cb) {
+  var user = this;
+
+  jwt.verify(token, "secretToken", function (err, decoded) {
+    user.findOne({ _id: decoded, token: token }, function (err, user) {
+      if (err) return cb(err);
+      cb(null, user);
+    });
+  });
 };
 
+const User = mongoose.model("User", userSchema);
 
-
-
-const updateUserPassword = async (email, hashedPassword) => {
-    try {
-        const result = await pool.query(
-            'UPDATE account SET password = $1 WHERE email = $2 RETURNING *',
-            [hashedPassword, email]
-        );
-        return result.rows[0];
-    } catch (error) {
-        console.error(`Error updating user password: ${error.message}`);
-        throw new Error('Failed to update password');
-    }
-};
-
-const updateUserEmail = async (oldEmail, newEmail) => {
-    try {
-        const result = await pool.query(
-            'UPDATE account SET email = $1 WHERE email = $2 RETURNING *',
-            [newEmail, oldEmail]
-        );
-        return result.rows[0];
-    } catch (error) {
-        console.error(`Error updating user email: ${error.message}`);
-        throw new Error('Failed to update email');
-    }
-};
-
-export { insertUser, selectUserByEmail, deleteUser, updateUserPassword, updateUserEmail };
+module.exports = { User };
