@@ -3,7 +3,7 @@ import { Comment, Avatar, Button, Input } from "antd";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import LikeDislikes from "./LikeDislike";
-import { commentNum } from "./ReplyComment";
+import { commentNum } from "./Reply";
 
 const { TextArea } = Input;
 
