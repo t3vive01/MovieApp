@@ -7,10 +7,10 @@ import {
   IMAGE_SIZE,
   POSTER_SIZE,
 } from "../../Config";
-
-import MovieByLatest from "./LatestMovies";
-import MovieNowPlaying from "./MoviePopular";
-import MovieNowPlaying from "./RecentMovies";
+import MainImage from "./MainImage";
+import LatestMovies from "./LatestMovies";
+import NowPlayingMovies from "./NowPlayingMovies";
+import MoviePopular from "./MoviePopular";
 
 const { Title } = Typography;
 
@@ -88,17 +88,17 @@ function HomePage() {
         </Button>
         {!stateOne && (
           <div>
-            <MovieByLatest />
+            <LatestMovies />
           </div>
         )}
         {!stateTwo && (
           <div>
-            <MovieByNowPlaying />
+            <NowPlayingMovies />
           </div>
         )}
         {!stateThree && (
           <div>
-            <MovieByPopular />
+            <MoviePopular />
           </div>
         )}
       </div>

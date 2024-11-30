@@ -4,7 +4,7 @@ import {
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
-} from './types.js';
+} from './type.js';
 import { USER_SERVER } from '../components/Config.js';
 
 export function registerUser(dataToSubmit){

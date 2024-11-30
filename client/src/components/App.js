@@ -4,8 +4,7 @@ import Auth from "../AuthFrontend/auth.js";
 import LandingPage from "./pages/HomePage/HomePage.js";
 import LoginPage from "./pages/Login/LoginPage.js";
 import RegisterPage from "./pages/Signup/SignUpPage.js";
-import NavBar from "./pages/NavBar/NavBar";
-import Footer from "./pages/Footer/Footer";
+import NavBar from "./pages/Navbar/Navbar.js";
 import MovieDetail from "./pages/MovieDetails/MovieDetail.js";
 import FavoritePage from "./pages/Favorites/FavoritePage.js";
 
@@ -26,7 +25,6 @@ function App() {
           <Route exact path="/favorite" component={Auth(FavoritePage, true)} />
         </Switch>
       </div>
-      <Footer />
     </Suspense>
   );
 }

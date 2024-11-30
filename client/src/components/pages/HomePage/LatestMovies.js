@@ -11,7 +11,7 @@ import {
 import GridCards from "../Commons/GridCards";
 const { Title } = Typography;
 
-function MovieByLatest() {
+function LatestMovies() {
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
   const [CurrentPage, setCurrentPage] = useState(0);
@@ -58,4 +58,4 @@ function MovieByLatest() {
   );
 }
 
-export default MovieByLatest;
+export default LatestMovies;

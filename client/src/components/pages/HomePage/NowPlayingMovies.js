@@ -7,10 +7,10 @@ import {
   IMAGE_SIZE,
   POSTER_SIZE,
 } from "../../Config";
-
+import GridCards from "../Commons/GridCards";
 const { Title } = Typography;
 
-function MovieNowPlaying() {
+function NowPlayingMovies() {
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
   const [CurrentPage, setCurrentPage] = useState(0);
@@ -59,4 +59,4 @@ function MovieNowPlaying() {
   );
 }
 
-export default MovieNowPlaying;
+export default NowPlayingMovies;
