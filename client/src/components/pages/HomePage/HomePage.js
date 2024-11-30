@@ -8,9 +8,9 @@ import {
   POSTER_SIZE,
 } from "../../Config";
 
-import MovieByLatest from "./MovieByLatest";
+import MovieByLatest from "./LatestMovies";
 import MovieNowPlaying from "./MoviePopular";
-import MovieNowPlaying from "./MovieNowPlaying";
+import MovieNowPlaying from "./RecentMovies";
 
 const { Title } = Typography;
 

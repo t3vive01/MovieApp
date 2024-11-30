@@ -16,8 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/favorite", require("./routes/favRoutes"));
+app.use("/api/users", require("./routes/userRouter"));
+app.use("/api/favorite", require("./routes/favRouter"));
+app.use("/api/comment", require("./routes/comments"));
 
 if (process.env.NODE_ENV === "production") {
  
