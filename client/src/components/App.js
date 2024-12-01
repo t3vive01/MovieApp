@@ -5,7 +5,7 @@ import LandingPage from "./pages/HomePage/HomePage.js";
 import LoginPage from "./pages/Login/LoginPage.js";
 import RegisterPage from "./pages/Signup/SignUpPage.js";
 import NavBar from "./pages/Navbar/Navbar.js";
-import MovieDetail from "./pages/MovieDetails/MovieDetail.js";
+import MovieDetail from "./pages/MovieDetails/MovieDetails.js";
 import FavoritePage from "./pages/Favorites/FavoritePage.js";
 
 function App() {
