@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
 const mongoose = require("mongoose");
-mongoose.set("useFindAndModify", true);
+// mongoose.set("useFindAndModify", true); 
 
 const connect = mongoose
   .connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
