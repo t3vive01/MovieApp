@@ -65,4 +65,13 @@ Description of Links:
         o	Link: users.userID → login.userID
         o	How it Works: The login table records user logins, linking each login record to a specific user.
 
+App Responsiveness (The UI design had not yet been fully edited when this screenshot was taken.
+Do not mind it being different in the video)
+Example with iPad IOS
+![alt text](image-2.png)
 
+Example with iPhone12/13 IOS 
+![alt text](image-3.png)
+
+Example with Galaxy S20 Ultra Android 11
+![alt text](image-4.png)
