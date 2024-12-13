@@ -3,7 +3,7 @@ const router = express.Router();
 const { Like } = require("../models/Like");
 const { Dislike } = require("../models/Dislike");
 
-const { auth } = require("../Authorization/auth");
+const { auth } = require("../middleware/auth");
 
 
 router.post("/getLikes", (req, res) => {
@@ -43,8 +43,10 @@ router.post("/upLike", (req, res) => {
   }
 
   const like = new Like(variable);
+
   like.save((err, likeResult) => {
     if (err) return res.json({ success: false, err });
+   
     Dislike.findOneAndDelete(variable).exec((err, disLikeResult) => {
       if (err) return res.status(400).json({ success: false, err });
       res.status(200).json({ success: true });
@@ -89,9 +91,10 @@ router.post("/upDisLike", (req, res) => {
   }
 
   const disLike = new Dislike(variable);
-
+ 
   disLike.save((err, dislikeResult) => {
     if (err) return res.json({ success: false, err });
+
     Like.findOneAndDelete(variable).exec((err, likeResult) => {
       if (err) return res.status(400).json({ success: false, err });
       res.status(200).json({ success: true });

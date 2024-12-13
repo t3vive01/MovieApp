@@ -1,0 +1,126 @@
+@import '~antd/dist/antd.css';
+
+.menu {
+  padding: 0 20px;
+  border-bottom: solid 1px #e0e0e0;
+  overflow: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #0056b3; /* Darker blue for better contrast */
+}
+
+.menu__logo {
+  width: 150px;
+  float: left;
+}
+
+.menu__logo a {
+  display: inline-block;
+  font-size: 24px;
+  color: #ffffff; /* Bright white logo text */
+  font-weight: bold;
+  text-decoration: none;
+  padding: 16px 20px;
+  transition: color 0.3s ease;
+}
+
+.menu__logo a:hover {
+  color: #ffd700; /* Golden color for hover */
+}
+
+.menu__container .ant-menu-item {
+  padding: 0 10px;
+}
+
+.menu__container .ant-menu-submenu-title {
+  padding: 10px 20px;
+}
+
+.menu__container .ant-menu-item a,
+.menu__container .ant-menu-submenu-title a {
+  color: #e0e0ff; /* Light pastel blue for visibility */
+  padding: 10px 15px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.menu__container .ant-menu-item a:hover,
+.menu__container .ant-menu-submenu-title a:hover {
+  color: #ffd700; /* Golden color for hover */
+}
+
+.menu__container .ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.menu__container .menu_left {
+  float: left;
+}
+
+.menu__container .menu_rigth {
+  float: right;
+}
+
+.menu__mobile-button {
+  float: right;
+  height: 32px;
+  padding: 6px;
+  margin-top: 8px;
+  display: none !important;
+  background: #003d80; /* Darker blue for buttons */
+  color: #ffffff; /* White text for contrast */
+  border: none;
+  font-size: 18px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu__mobile-button:hover {
+  background-color: #002b5c; /* Even darker blue for hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.menu_drawer .ant-drawer-body {
+  padding: 0 !important;
+  background-color: #0056b3;
+}
+
+.menu_drawer .ant-drawer-header {
+  padding: 14px 24px !important;
+  background-color: #0056b3;
+  color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.menu_drawer .ant-drawer-header .ant-drawer-title {
+  font-size: 18px;
+}
+
+@media (max-width: 767px) {
+  .menu__mobile-button {
+    display: inline-block !important;
+  }
+
+  .menu_left,
+  .menu_rigth {
+    display: none;
+  }
+
+  .menu__logo a {
+    margin-left: -20px;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .menu__container .ant-menu-item,
+  .menu__container .ant-menu-submenu-title {
+    padding: 8px 20px;
+  }
+
+  .menu__logo a {
+    padding: 10px 20px;
+  }
+}

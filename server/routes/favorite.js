@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Favorite } = require("../models/Fav");
-const { auth } = require("../Authorization/auth");
+const { Favorite } = require("../models/Favorite");
+const { auth } = require("../middleware/auth");
 
 router.post("/favoriteNumber", (req, res) => {
   Favorite.find({ movieId: req.body.movieId }).exec((err, info) => {

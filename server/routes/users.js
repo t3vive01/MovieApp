@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
-const { auth } = require("../Authorization/auth");
+
+const { auth } = require("../middleware/auth");
 
 router.get("/auth", auth, (req, res) => {
   res.status(200).json({
@@ -16,7 +17,7 @@ router.get("/auth", auth, (req, res) => {
   });
 });
 
-router.post("/signup", (req, res) => {
+router.post("/register", (req, res) => {
   const user = new User(req.body);
 
   user.save((err, doc) => {
